@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity 0.5.0;
 
 library SafeMath {
     /**
@@ -81,11 +81,11 @@ interface IERC20 {
 contract ERC20 is IERC20 {
     using SafeMath for uint256;
 
-    mapping (address => uint256) private _balances;
+    mapping (address => uint256) internal _balances;
 
     mapping (address => mapping (address => uint256)) private _allowed;
 
-    uint256 private _totalSupply;
+    uint256 internal _totalSupply;
 
     /**
      * @dev Total number of tokens in existence
@@ -213,21 +213,6 @@ contract ERC20 is IERC20 {
     }
 
     /**
-     * @dev Internal function that mints an amount of the token and assigns it to
-     * an account. This encapsulates the modification of balances such that the
-     * proper events are emitted.
-     * @param account The account that will receive the created tokens.
-     * @param value The amount that will be created.
-     */
-    function _mint(address account, uint256 value) internal {
-        require(account != address(0));
-
-        _totalSupply = _totalSupply.add(value);
-        _balances[account] = _balances[account].add(value);
-        emit Transfer(address(0), account, value);
-    }
-
-    /**
      * @dev Internal function that burns an amount of the token of a given
      * account.
      * @param account The account whose tokens will be burnt.
@@ -268,11 +253,13 @@ contract Token is ERC20 {
         _;
     }
 
-    constructor (string memory name, string memory symbol, uint8 decimals) public {
+    constructor (string memory name, string memory symbol, uint8 decimals, uint256 totalSupply) public {
         _name = name;
         _symbol = symbol;
         _decimals = decimals;
         _owner = msg.sender;
+        _totalSupply = totalSupply;
+        _balances[msg.sender] = totalSupply;
     }
 
     /**
@@ -302,17 +289,12 @@ contract Token is ERC20 {
     function owner() public view returns (address) {
         return _owner;
     }
-    
+
     /**
      * @dev Total number of tokens has been burned.
      */
     function burned() public view returns (uint256) {
         return _burned;
-    }
-
-    function mint(address account, uint256 value) public onlyOwner returns (bool) {
-        _mint(account, value);
-        return true;
     }
 
     function burn(uint256 value) public returns(bool) {
