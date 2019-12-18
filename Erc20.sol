@@ -1,3 +1,8 @@
+/**
+ * @todo Add ERC777 contract
+ * @body ERC777 contract is a new contract style, try to use it.
+ */
+
 pragma solidity 0.5.0;
 
 library SafeMath {
