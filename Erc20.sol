@@ -222,6 +222,8 @@ contract ERC20 is IERC20 {
      * account.
      * @param account The account whose tokens will be burnt.
      * @param value The amount that will be burnt.
+     * TODO Remove function named _burn()
+     * BODY Cause we have removed function named _mint(), so we prefer to remove _burn() at the same time.
      */
     function _burn(address account, uint256 value) internal {
         require(account != address(0));
