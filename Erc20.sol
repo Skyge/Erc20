@@ -5,6 +5,11 @@
 
 pragma solidity 0.5.0;
 
+/**
+ * TODO Add error message for require
+ * BODY When do not meet some conditions, give out error message and position.
+ */
+
 library SafeMath {
     /**
      * @dev Multiplies two unsigned integers, reverts on overflow.
