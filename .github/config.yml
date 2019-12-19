@@ -1,3 +1,2 @@
 todo:
-  keyword: ['@todo','TODO']
-  label: ["todo :robot:", "TODO :octocat:"]
+  label: "TODO :octocat:"
